@@ -12,6 +12,11 @@ async function setup() {
     await worker.load();
     await worker.loadLanguage('eng');
     await worker.initialize('eng');
+
+    // create target canvas for worker to display text
+    const canvas = document.createElement('canvas');
+    canvas.width = video.width;
+    canvas.height = video.height;
   });
 }
 setup();
