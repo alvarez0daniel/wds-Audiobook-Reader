@@ -14,17 +14,17 @@ async function setup() {
     await worker.loadLanguage('eng');
     await worker.initialize('eng');
 
-    // create target canvas for worker to display text
+    // create target canvas to store image for processing
     const canvas = document.createElement('canvas');
     canvas.width = video.width;
     canvas.height = video.height;
 
     // recognize text from processing image; read aloud and display text
     document.addEventListener('keypress', async ( e ) => {
-      // get image context from canvas
+      // take processing image and store in canvas
       if (!e.code == 'Space') return;
       canvas.getContext('2d').drawImage(video, 0, 0, video.width, video.height)
-      const {data: { text } } = await worker.recognize(canvas);
+      const { data: { text } } = await worker.recognize(canvas);
       
       // clean up text and play audio
       speechSynthesis.speak(
@@ -36,4 +36,6 @@ async function setup() {
     });
   });
 }
+
+// run
 setup();
